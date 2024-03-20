@@ -25,7 +25,7 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -33,9 +33,9 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -46,15 +46,12 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
-        }
         commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.core)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -62,8 +59,24 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.ktor.client.okhttp)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+        jsMain.dependencies {
+            implementation(compose.html.core)
+            implementation(libs.ktor.client.js)
         }
     }
 }
