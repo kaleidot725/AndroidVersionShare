@@ -16,7 +16,8 @@
       </BuildActionEntries>
    </BuildAction>
    <LaunchAction
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/katz/Documents/Github/VersionShareApp"
       buildConfiguration = "Debug"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
