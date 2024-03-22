@@ -1,3 +1,5 @@
+package ui
+
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.CoroutineScope
@@ -9,20 +11,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 
 class AppViewModel {
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private val client = getHttpClient()
 
-    private val _text: MutableStateFlow<String> = MutableStateFlow("")
-    val text: StateFlow<String> = _text.asStateFlow()
+    private val _versions: MutableStateFlow<List<Version>> = MutableStateFlow(emptyList())
+    val versions: StateFlow<List<Version>> = _versions.asStateFlow()
 
     fun load() {
         scope.launch {
             withContext(Dispatchers.IO) {
-                val response =
-                    client.get("https://dl.google.com/android/studio/metadata/distributions.json")
-                _text.value = response.bodyAsText()
+                val url = "https://dl.google.com/android/studio/metadata/distributions.json"
+                val json = client.get(url).bodyAsText()
+                _versions.value = Json.decodeFromString<List<Version>>(json)
             }
         }
     }
