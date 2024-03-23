@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -28,7 +29,7 @@ fun App() {
         LaunchedEffect(viewModel) { viewModel.loadVersions() }
 
         val uiState by viewModel.state.collectAsState()
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
             when (val state = uiState) {
                 AppViewModel.State.Loading -> {
                     CircularProgressIndicator(

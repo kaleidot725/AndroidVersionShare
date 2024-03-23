@@ -3,6 +3,7 @@ package ui.app
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +20,8 @@ class AppViewModel {
 
     fun loadVersions() {
         scope.launch {
+            _state.value = State.Loading
+            delay(300)
             val versions = repository.getVersions()
             if (versions != null) {
                 _state.value = State.Success(versions)
