@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +25,27 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         val viewModel by remember { mutableStateOf(AppViewModel()) }
-        val versions by viewModel.versions.collectAsState()
+        val uiState by viewModel.state.collectAsState()
 
-        Box {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(versions) { version ->
-                    Text("${version.name} ${version.version} ${version.apiLevel} ${version.distributionPercentage}")
+        Box(modifier = Modifier.fillMaxSize()) {
+            when (val state = uiState) {
+                AppViewModel.State.Loading -> {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
+
+                is AppViewModel.State.Success -> {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(state.versions) { version ->
+                            Text("${version.name} ${version.version} ${version.apiLevel} ${version.distributionPercentage}")
+                        }
+                    }
+                }
+
+                AppViewModel.State.Failed -> {
+                    Text(
+                        text = "Loading Error!!",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
                 }
             }
 
@@ -37,7 +53,7 @@ fun App() {
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.align(Alignment.BottomCenter),
             ) {
-                Button(onClick = { viewModel.load() }) {
+                Button(onClick = { viewModel.loadVersions() }) {
                     Text("Load")
                 }
             }
