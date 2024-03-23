@@ -1,4 +1,4 @@
-package ui
+package ui.app
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
