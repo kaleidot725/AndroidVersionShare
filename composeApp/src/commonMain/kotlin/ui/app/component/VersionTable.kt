@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,21 +37,24 @@ fun VersionTable(
 @Composable
 private fun TableHeader(modifier: Modifier = Modifier) {
     Row(modifier) {
-        Text(
+        AutoSizeText(
             text = "ANDROID PLATFORM\nVERSION",
             textAlign = TextAlign.Center,
+            maxLines = 2,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
         )
 
-        Text(
+        AutoSizeText(
             text = "API LEVEL",
-            textAlign = TextAlign.Start,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
         )
 
-        Text(
+        AutoSizeText(
             text = "CUMULATIVE\nDISTRIBUTION",
             textAlign = TextAlign.Center,
+            maxLines = 2,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
         )
     }
@@ -64,13 +66,13 @@ private fun TableVersionItem(
     modifier: Modifier = Modifier
 ) {
     Row(modifier) {
-        Text(
+        AutoSizeText(
             text = "${version.version} ${version.name}",
             textAlign = TextAlign.Start,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
         )
 
-        Text(
+        AutoSizeText(
             text = "${version.apiLevel}",
             textAlign = TextAlign.Start,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
@@ -81,7 +83,7 @@ private fun TableVersionItem(
         } else {
             ""
         }
-        Text(
+        AutoSizeText(
             text = textCumulativeDistribution,
             textAlign = TextAlign.End,
             modifier = Modifier.weight(0.3f).align(Alignment.CenterVertically)
