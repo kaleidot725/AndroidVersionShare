@@ -18,9 +18,9 @@ class AppViewModel {
     private val _state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
     val state: StateFlow<State> = _state.asStateFlow()
 
-    fun loadVersions() {
+    fun loadVersions(isRefreshing: Boolean) {
         scope.launch {
-            _state.value = State.Loading
+            if (!isRefreshing) _state.value = State.Loading
             delay(300)
             val versions = repository.getVersions()
             if (versions != null) {
