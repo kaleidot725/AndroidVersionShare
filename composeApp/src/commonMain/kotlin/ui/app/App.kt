@@ -17,11 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import ui.app.component.VersionTable
 
 @Composable
-@Preview
 fun App() {
     MaterialTheme {
         val viewModel by remember { mutableStateOf(AppViewModel()) }
