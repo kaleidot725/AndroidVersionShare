@@ -1,10 +1,12 @@
 package ui.app
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
@@ -28,28 +30,32 @@ fun App() {
         val uiState by viewModel.state.collectAsState()
 
         MaterialTheme(colors = darkColors()) {
-            Surface {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    when (val state = uiState) {
-                        AppViewModel.State.Loading -> {
-                            CircularProgressIndicator(
-                                modifier = Modifier.align(Alignment.Center)
-                            )
-                        }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colors.background)
+                    .statusBarsPadding()
+                    .navigationBarsPadding()
+            ) {
+                when (val state = uiState) {
+                    AppViewModel.State.Loading -> {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
 
-                        is AppViewModel.State.Success -> {
-                            VersionTable(
-                                versions = state.versions,
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        }
+                    is AppViewModel.State.Success -> {
+                        VersionTable(
+                            versions = state.versions,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
 
-                        AppViewModel.State.Failed -> {
-                            Text(
-                                text = "Loading Error!!",
-                                modifier = Modifier.align(Alignment.Center)
-                            )
-                        }
+                    AppViewModel.State.Failed -> {
+                        Text(
+                            text = "Loading Error!!",
+                            modifier = Modifier.align(Alignment.Center)
+                        )
                     }
                 }
             }
