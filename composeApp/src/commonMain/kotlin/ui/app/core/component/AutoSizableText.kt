@@ -84,7 +84,6 @@ class AutoSizer(
             // see: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/binary-search.html
             if (result.hasVisualOverflow) 1 else -1
         }
-        assert(index < 0)
 
         val insertionPoint = -(index + 1)
         // 最適なフォントサイズの挿入位置は、はみ出すフォントサイズのうち最小のものの位置に等しいので、
