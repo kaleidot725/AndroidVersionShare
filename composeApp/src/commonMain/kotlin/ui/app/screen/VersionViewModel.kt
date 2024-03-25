@@ -1,4 +1,4 @@
-package ui.app
+package ui.app.screen
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,16 +11,15 @@ import kotlinx.coroutines.launch
 import ui.model.Version
 import ui.repository.VersionRepository
 
-class AppViewModel {
+class VersionViewModel {
     private val repository = VersionRepository()
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-
     private val _state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
     val state: StateFlow<State> = _state.asStateFlow()
 
-    fun loadVersions(isRefreshing: Boolean) {
+    fun loadVersions() {
         scope.launch {
-            if (!isRefreshing) _state.value = State.Loading
+            if (_state.value !is State.Success) _state.value = State.Loading
             delay(300)
             val versions = repository.getVersions()
             if (versions != null) {

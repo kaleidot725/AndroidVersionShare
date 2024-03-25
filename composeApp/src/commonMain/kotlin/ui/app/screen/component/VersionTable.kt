@@ -1,4 +1,4 @@
-package ui.app.component
+package ui.app.screen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,17 +9,19 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ui.app.component.AutoSizableText
 import ui.model.Version
 import kotlin.math.round
 
@@ -30,7 +32,9 @@ fun VersionTable(
 ) {
     Column(modifier) {
         TableHeader(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
         )
 
         Column(
@@ -53,37 +57,43 @@ fun VersionTable(
 @Composable
 private fun TableHeader(modifier: Modifier = Modifier) {
     Row(modifier) {
-        AutoSizeText(
+        Text(
             text = "ANDROID PLATFORM\nVERSION",
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            fontWeight = FontWeight.ExtraBold,
-            maxLines = 3,
+            style = TextStyle(
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontWeight = FontWeight.ExtraBold
+            ),
             modifier = Modifier
+                .wrapContentHeight()
                 .weight(0.3f)
                 .align(Alignment.CenterVertically)
                 .alignByBaseline()
         )
 
-        AutoSizeText(
+        Text(
             text = "API LEVEL",
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            fontWeight = FontWeight.ExtraBold,
-            maxLines = 3,
+            style = TextStyle(
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontWeight = FontWeight.ExtraBold
+            ),
             modifier = Modifier
+                .wrapContentHeight()
                 .weight(0.3f)
                 .align(Alignment.CenterVertically)
                 .alignByBaseline()
         )
 
-        AutoSizeText(
+        Text(
             text = "CUMULATIVE\nDISTRIBUTION",
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            fontWeight = FontWeight.ExtraBold,
-            maxLines = 3,
+            style = TextStyle(
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontWeight = FontWeight.ExtraBold
+            ),
             modifier = Modifier
+                .wrapContentHeight()
                 .weight(0.3f)
                 .align(Alignment.CenterVertically)
                 .alignByBaseline()
@@ -111,10 +121,14 @@ private fun TableVersionItem(
                 .fillMaxHeight()
                 .background(color)
         ) {
-            Text(
+            AutoSizableText(
                 text = "${version.version}",
-                textAlign = TextAlign.Start,
-                color = Color.Gray,
+                style = TextStyle(
+                    textAlign = TextAlign.Start,
+                    color = Color.Gray,
+                ),
+                minFontSize = 8.sp,
+                maxFontSize = 16.sp,
                 modifier = Modifier.align(Alignment.CenterStart)
             )
         }
@@ -132,11 +146,15 @@ private fun TableVersionItem(
                 .fillMaxHeight()
                 .background(color)
         ) {
-            Text(
+            AutoSizableText(
                 text = version.name,
-                textAlign = TextAlign.Start,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold,
+                style = TextStyle(
+                    textAlign = TextAlign.Start,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                ),
+                minFontSize = 8.sp,
+                maxFontSize = 16.sp,
                 modifier = Modifier.align(Alignment.CenterStart)
             )
         }
@@ -147,11 +165,15 @@ private fun TableVersionItem(
                 .fillMaxHeight()
                 .background(color)
         ) {
-            Text(
+            AutoSizableText(
                 text = "${version.apiLevel}",
-                textAlign = TextAlign.Start,
-                fontSize = version.distributionPercentage.toFontSize(),
-                color = Color.Gray,
+                style = TextStyle(
+                    textAlign = TextAlign.Start,
+                    fontSize = 100.sp,
+                    color = Color.Gray,
+                ),
+                minFontSize = 8.sp,
+                maxFontSize = 40.sp,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -163,9 +185,11 @@ private fun TableVersionItem(
         }
         Text(
             text = textCumulativeDistribution,
-            textAlign = TextAlign.End,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                textAlign = TextAlign.End,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+            ),
             modifier = Modifier
                 .weight(0.3f)
                 .fillMaxHeight()
@@ -207,14 +231,5 @@ private fun Int.toColor(): Color {
         31 -> Color(0xFF87a9ae)
         33 -> Color(0xFFd9b138)
         else -> Color(0xFFd9b138)
-    }
-}
-
-private fun Double.toFontSize(): TextUnit {
-    return when {
-        (this < 0.02) -> 14.sp
-        (this < 0.05) -> 18.sp
-        (this < 0.10) -> 28.sp
-        else -> 28.sp
     }
 }

@@ -46,12 +46,10 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
         }
         iosMain.dependencies {
