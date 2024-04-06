@@ -52,6 +52,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(compose.desktop.currentOs)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.darklaf.core)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
