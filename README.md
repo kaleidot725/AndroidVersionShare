@@ -1,4 +1,4 @@
-## VersionShareApp
+## Android Version Share App
 
 ![20240325-234709](https://github.com/kaleidot725/VersionShareApp/assets/23740796/e5b666a8-9f19-4b1f-a5c4-d578a858eb84)
 
