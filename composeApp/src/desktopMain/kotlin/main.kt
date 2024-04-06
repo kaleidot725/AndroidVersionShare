@@ -11,7 +11,7 @@ fun main() = SwingUtilities.invokeLater {
     LafManager.install(DarculaTheme())
     JFrame().also { window ->
         window.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-        window.title = "VersionShareApp"
+        window.title = "VShare"
         window.setSize(800, 600)
         window.isVisible = true
 

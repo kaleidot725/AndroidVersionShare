@@ -102,6 +102,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "jp.kaleidot725.vershare"
             packageVersion = "1.0.0"
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+            }
+
+            linux {
+                iconFile.set(project.file("icon.ico"))
+            }
         }
     }
 }
