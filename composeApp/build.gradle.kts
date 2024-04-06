@@ -100,8 +100,12 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "jp.kaleidot725.vershare"
+            packageName = "VShare"
             packageVersion = "1.0.0"
+
+            macOS {
+                iconFile.set(project.file("icon.icns"))
+            }
 
             windows {
                 iconFile.set(project.file("icon.ico"))
